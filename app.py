@@ -10,7 +10,7 @@ logging.basicConfig(filename='test.log', level=logging.INFO)
 # CAN Setting
 can_interface = 'can0'
 
-bus = can.interface.Bus(can_interface, bustype='socketcan')
+bus = can.interface.Bus(can_interface, bustype='socketcan', can_filters='CF004FE,CF004FE')
 
 start_time = time()
 list_msg_json = []
