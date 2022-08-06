@@ -7,10 +7,24 @@ import logging
 
 logging.basicConfig(filename='test.log', level=logging.INFO)
 
+def can_mask_creator(can_id) -> int:
+     """ Generate can mask based on lenth from can ID
+     Args:
+         can_id (str): can message ID (e.g CF004FE)
+     Returns:
+         int: return hex mask id of 0xFFFFFFF
+     """
+     if len(can_id) > 4:
+          return int("F"*7,16)
+     else:
+          return int("F"*3,16)
+
 # CAN Setting
 can_interface = 'can0'
 
-bus = can.interface.Bus(can_interface, bustype='socketcan', can_filters='CF004FE,CF004FE')
+filters = [{"can_id":217056510, "can_mask": can_mask_creator('CF004FE')}]
+
+bus = can.interface.Bus(can_interface, bustype='socketcan', can_filters=filters)
 
 start_time = time()
 list_msg_json = []
